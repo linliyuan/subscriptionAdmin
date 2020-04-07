@@ -5,3 +5,4 @@ vendor/
 .idea/
 public/logs/*
 public/GeoLite2-City.mmdb
+app/sql_logs/*
