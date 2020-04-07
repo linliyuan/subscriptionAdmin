@@ -107,18 +107,18 @@ $di->setShared('db', function () {
     return $connection;
 });
 
-$di->setShared('mongo',function (){
-   $config = $this->getConfig();
-
-    $uri='mongodb://'.$config->mongo->host;
-    $client = new \MongoDB\Client($uri,[
-        'username'=>$config->mongo->user,
-        'password'=>$config->mongo->password,
-        'authSource'=>$config->mongo->auth_source,
-    ]);
-    $collection = $client->selectDatabase('laravel_phaclon');
-    return $collection;
-});
+//$di->setShared('mongo',function (){
+//   $config = $this->getConfig();
+//
+//    $uri='mongodb://'.$config->mongo->host;
+//    $client = new \MongoDB\Client($uri,[
+//        'username'=>$config->mongo->user,
+//        'password'=>$config->mongo->password,
+//        'authSource'=>$config->mongo->auth_source,
+//    ]);
+//    $collection = $client->selectDatabase('laravel_phaclon');
+//    return $collection;
+//});
 
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise

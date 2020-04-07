@@ -3,7 +3,7 @@ namespace Exceptions;
 
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
-use MongoDB\Driver\Exception\InvalidArgumentException;
+//use MongoDB\Driver\Exception\InvalidArgumentException;
 use Phalcon\Di;
 use Phalcon\Http\Response;
 use Respect\Validation\Exceptions\NestedValidationException;
@@ -117,8 +117,8 @@ class Handler
             return $this->packResult(ErrorCode::$createUid,"snowflake: ".$e->getMessage());
         }else if($e instanceof CreateUserException){
             return $this->packResult(ErrorCode::$createUserError,$e->getMessage());
-        }else if($e instanceof InvalidArgumentException){
-            return $this->packResult(ErrorCode::$wrongFormat,"album_id format invalid");
+//        }else if($e instanceof InvalidArgumentException){
+//            return $this->packResult(ErrorCode::$wrongFormat,"album_id format invalid");
         }else if($e instanceof SessionKeyOverException){
             return $this->packResult(ErrorCode::$sessionExpired,"sessionKey over");
         }

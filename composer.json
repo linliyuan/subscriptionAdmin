@@ -8,8 +8,6 @@
         "zendframework/zend-diactoros": "1.8",
         "respect/validation": "1.1",
         "alibabacloud/sdk": "^1.7",
-        "monolog/monolog": "~1.24",
-        "mongodb/mongodb": "^1.4",
         "overtrue/wechat": "~4.0"
     }
 }
