@@ -1,0 +1,7 @@
+app/config/config.ini
+composer.lock
+.phalcon/
+vendor/
+.idea/
+public/logs/*
+public/GeoLite2-City.mmdb
