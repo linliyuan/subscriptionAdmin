@@ -1,4 +1,5 @@
 app/config/config.ini
+pp/config/config.php
 composer.lock
 .phalcon/
 vendor/
