@@ -29,6 +29,14 @@ $user->post('/get_user_info','getUserInfo');
 $user->post('/set_msg','setMsg');
 $app->mount($user);
 
+$common = new MicroCollection();
+$common->setHandler(
+    'Controllers\CommonController',true
+);
+$common->setPrefix('/common');
+$common->post('/uploadFile','uploadFile');
+$app->mount($common);
+
 
 $work = new MicroCollection();
 $work->setHandler(

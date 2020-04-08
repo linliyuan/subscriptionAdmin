@@ -5,5 +5,6 @@ composer.lock
 vendor/
 .idea/
 public/logs/*
+public/upload/*
 public/GeoLite2-City.mmdb
 app/sql_logs/*
