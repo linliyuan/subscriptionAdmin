@@ -8,6 +8,7 @@
         "zendframework/zend-diactoros": "1.8",
         "respect/validation": "1.1",
         "alibabacloud/sdk": "^1.7",
-        "overtrue/wechat": "~4.0"
+        "overtrue/wechat": "~4.0",
+        "aliyuncs/oss-sdk-php": "^2.3"
     }
 }

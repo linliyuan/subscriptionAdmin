@@ -19,9 +19,12 @@ class CommonService {
             self::setError("文本过大");
             return false;
         }
-        $etc = File::getExtensionAndCheck($files['name']);
-        File::uploadFile($files['tmp_name'], File::getFileName($etc));
-        return true;
+        $res = File::uploadFile($files['tmp_name'], $files['name']);
+        if (!$res) {
+            self::setError(File::getLastError());
+            return false;
+        }
+        return $res;
     }
 
     private static function setError($error){

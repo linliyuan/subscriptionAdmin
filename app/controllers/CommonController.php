@@ -20,7 +20,8 @@ class CommonController extends BaseController {
 //        }
         $res = CommonService::uploadFileService($_FILES['file']);
         if (!$res){
-            var_dump(CommonService::getError());
+            return $this->responseFail(ErrorCode::$unknownError,CommonService::getError());
         }
+        return $this->responseSuccess(["url" => $res]);
     }
 }
