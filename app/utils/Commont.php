@@ -31,4 +31,16 @@ class Commont {
         }
         return $code;
     }
+
+    public static function ChineseSort($arr, $file) {
+        if (empty($arr)){
+            return $arr;
+        }
+        $sortFileArr = array_column($arr, $file);
+        foreach ($sortFileArr as $key => $value) {
+            $new_array[$key] = iconv('UTF-8', 'GBK', $value);
+        }
+        array_multisort($new_array, SORT_ASC, SORT_STRING, $arr);
+        return $arr;
+    }
 }

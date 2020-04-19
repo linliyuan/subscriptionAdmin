@@ -4,8 +4,8 @@ class SchoolModel extends \Models\BaseModel
 {
     use \Traits\Model\SoftDelete;
 
-    protected $table = 's_user';
-    protected $softDeleted = 1;
+    protected $table = 's_school';
+//    protected $softDeleted = 1;
 
     public function initialize()
     {

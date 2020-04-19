@@ -46,6 +46,17 @@ $work->setPrefix('/work');
 $work->post('/get_work_set_list','getWorkSetList');
 $app->mount($work);
 
+$school = new MicroCollection();
+$school->setHandler(
+    'Controllers\SchoolController',true
+);
+$school->setPrefix('/school');
+$school->post('/school_list','GetSchoolList'); // 获取所有已登记学校列表
+$school->post('/department_list','GetDepartmentList'); // 获取所有已登记学校列表
+$school->post('/major_list','GetMajorList'); // 获取所有已登记学校列表
+$school->post('/class_list','GetClassList'); // 获取所有已登记学校列表
+$app->mount($school);
+
 
 /**
  * Not found handler

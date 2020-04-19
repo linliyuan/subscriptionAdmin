@@ -66,13 +66,13 @@ class BaseController extends \Phalcon\Mvc\Controller
         exit();
     }
 
-    protected function responseFail($errCode = null, $errMsg = 'an error occurred.',$isShow = 1)
+    protected function responseFail($errCode = null, $errMsg = 'an error occurred.',$isShow = 0)
     {
 
         $res = [
             'errCode' => $errCode,
             'errMsg' => $errMsg,
-            'isShow' => 1
+            'isShow' => $isShow
         ];
         $this->responseJson($res);
         exit();
