@@ -62,10 +62,39 @@ class UserController extends BaseController {
             "nickName"        => $user['nickName'],
             "schoolName"      => $user['schoolName'],
             "subscribeStatus" => (int)$user['subscribeStatus'],
+            "isComplete" => (int)$user['isComplete'],
         ];
         return $this->responseSuccess($userInfo);
     }
-    public function setMsg(){
-        SubscribeService::sendSubscribeMsg($this->appId);
+
+    public function getUserCompleteInfo() {
+        v::key("openid", v::stringType())
+            ->check($this->param);
+        $user = UserService::getUserCompleteInfo($this->param["openid"]);
+        return $this->responseSuccess($user);
+    }
+
+    public function completeUserInfo() {
+        v::key("openid", v::stringType())
+            ->key("realName", v::stringType())
+            ->key("miniPhone", v::stringType())
+            ->key("gender", v::numeric())
+            ->key("schoolId", v::numeric())
+            ->key("departmentId", v::numeric())
+            ->key("majorId", v::numeric())
+            ->key("classId", v::numeric())
+            ->key("identity", v::numeric())
+            ->key("birthday", v::stringType())
+            ->check($this->param);
+        UserService::completeUserInfo($this->param);
+        return $this->responseSuccess([]);
+    }
+
+    public function changeSubscribeStatus(){
+        v::key("openid", v::stringType())
+            ->key("subscribeStatus", v::in([0,1]))
+            ->check($this->param);
+        UserService::changeSubscribeStatus($this->param["openid"], $this->param["subscribeStatus"]);
+        return $this->responseSuccess([]);
     }
 }

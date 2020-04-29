@@ -9,7 +9,7 @@ use Libs\AliYunOss;
 class File {
 
     const WHITE_ETC = [ // 可以传的后缀
-      "png","jpeg","gif","js","jpg"
+      "png","jpeg","gif","js","jpg","xlsx"
     ];
     private static $lastError = "";
 

@@ -26,6 +26,9 @@ $user->post('/login','login');
 $user->post('/get_status','getUserStatus');
 $user->post('/set_user_info','setUserInfo');
 $user->post('/get_user_info','getUserInfo');
+$user->post('/get_complete_user_info','getUserCompleteInfo');
+$user->post('/complete_user_info','completeUserInfo');
+$user->post('/change_subscribe_status','changeSubscribeStatus');
 $user->post('/set_msg','setMsg');
 $app->mount($user);
 
@@ -52,8 +55,8 @@ $school->setHandler(
 );
 $school->setPrefix('/school');
 $school->post('/school_list','GetSchoolList'); // 获取所有已登记学校列表
-$school->post('/department_list','GetDepartmentList'); // 获取所有已登记学校列表
-$school->post('/major_list','GetMajorList'); // 获取所有已登记学校列表
+$school->post('/department_list','GetDepartmentList'); // 获取所有已登记院系列表
+$school->post('/major_list','GetMajorList'); // 获取所有已登记专业列表
 $school->post('/class_list','GetClassList'); // 获取所有已登记学校列表
 $app->mount($school);
 

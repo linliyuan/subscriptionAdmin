@@ -9,8 +9,8 @@ $loader->registerDirs(
     [
         $config->application->controllersDir,
         $config->application->modelsDir,
-        //        $config->application->tasksDir,
-        //        $config->application->traitsDir,
+        $config->application->tasksDir,
+        $config->application->traitsDir,
         $config->application->utilsDir,
         $config->application->ExceptionDir,
         $config->application->LibDir,
