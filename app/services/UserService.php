@@ -7,7 +7,9 @@ use EasyWeChat\Factory;
 use Exceptions\SessionKeyOverException;
 use Exceptions\UserNotFoundException;
 use Models\UserModel;
+use Models\UserRelationModel;
 use Phalcon\Di;
+use Utils\Commont;
 use Utils\RedisKey;
 use Utils\easyWechat;
 
@@ -111,7 +113,9 @@ class UserService
     // 获取用户的完整信息
     public static function getUserCompleteInfo($openid) {
         $userInfoSql = "SELECT
-                            s_user.nickName,s_user.avatarUrl,s_user.miniPhone,s_user.gender,s_user.city,s_user.province,s_user.country,s_user.isComplete,s_user.realName,s_user.birthday,s_user.schoolId,s_user.departmentId,s_user.majorId,s_user.classId,s_user.identity,s_user.gender,
+                            s_user.nickName,s_user.avatarUrl,s_user.miniPhone,s_user.gender,s_user.city,s_user.province,
+                            s_user.country,s_user.isComplete,s_user.realName,s_user.birthday,s_user.schoolId,s_user.departmentId,
+                            s_user.majorId,s_user.classId,s_user.identity,s_user.gender,
                             case s_user.identity when 1 then '学生' when 2 then '老师' when 3 then '普通职工' else '其他' end as identityValue,
                             case s_user.gender when 1 then '男' when 2 then '女' else '其他' end as genderValue,
                             s_school.`name` AS schoolName,
@@ -121,7 +125,7 @@ class UserService
                         FROM
                             s_user
                             LEFT JOIN s_school ON s_user.schoolId = s_school.id 
-                            LEFT JOIN s_department ON s_user.departmentid = s_department.id 
+                            LEFT JOIN s_department ON s_user.departmentId = s_department.id 
                             LEFT JOIN s_major ON s_user.majorId = s_major.id 
                             LEFT JOIN s_class ON s_user.classId = s_class.id 
                         WHERE
@@ -164,5 +168,49 @@ class UserService
         $user = UserModel::getUserByOpenid($openid);
         $user->subscribeStatus = $subscribeStatus;
         $user->save();
+    }
+
+    public static function userSubscribeOther($openid, $otherOpenid){
+        $relation = UserRelationModel::query()
+            ->where("openid", "=", $openid)
+            ->where("otherOpenid", "=", $otherOpenid)
+            ->limit(1);
+        $relation = json_decode(json_encode($relation), 1);
+        if ($relation) {
+            return;
+        }
+        $relation = new UserRelationModel();
+        $relation->openid = $openid;
+        $relation->otherOpenid = $otherOpenid;
+        $relation->save();
+    }
+
+    public static function getTeacherList($openid){
+        $user = UserModel::getUserByOpenid($openid);
+        $school = $user->schoolId;
+        $userInfoSql = "SELECT
+                            s_user.realName as realName, s_department.name as departmentName, s_user.id as userId
+                        FROM
+                            s_user
+                            LEFT JOIN s_department ON s_user.departmentId = s_department.id 
+                        WHERE
+                            s_user.schoolId = \"{$school}\"
+                        AND s_user.identity = 2
+                        ";
+        $res = Di::getDefault()->getShared('db')->query($userInfoSql);
+        $res->setFetchMode(
+            \Phalcon\Db::FETCH_ASSOC
+        );
+        $teachers = $res->fetchall() ?? [];
+        $teacherList = [];
+        $teacherListShow = [];
+//        var_dump($teachers);
+//        exit();
+        $teachers = Commont::ChineseSort($teachers, "realName");
+        foreach ($teachers as $teacher){
+            $teacherList[$teacher["departmentName"]][] = $teacher;
+            $teacherListShow[$teacher["departmentName"]][] = $teacher["realName"];
+        }
+        return ["teacher_list" => $teacherList, "teacher_list_show" => $teacherListShow];
     }
 }

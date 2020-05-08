@@ -33,7 +33,7 @@ class Commont {
     }
 
     public static function ChineseSort($arr, $file) {
-        if (empty($arr)){
+        if (empty($arr) || count($arr) == 1){
             return $arr;
         }
         $sortFileArr = array_column($arr, $file);

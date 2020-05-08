@@ -30,6 +30,7 @@ $user->post('/get_complete_user_info','getUserCompleteInfo');
 $user->post('/complete_user_info','completeUserInfo');
 $user->post('/change_subscribe_status','changeSubscribeStatus');
 $user->post('/set_msg','setMsg');
+$user->post('/teacher_list','teacherList');
 $app->mount($user);
 
 $common = new MicroCollection();

@@ -97,4 +97,10 @@ class UserController extends BaseController {
         UserService::changeSubscribeStatus($this->param["openid"], $this->param["subscribeStatus"]);
         return $this->responseSuccess([]);
     }
+
+    public function teacherList(){
+        v::key("openid", v::stringType())
+            ->check($this->param);
+        return $this->responseSuccess(UserService::getTeacherList($this->param["openid"]));
+    }
 }
